@@ -1,3 +1,6 @@
+
+from vxgyrus.presentation.cli_viewer import SceneViewer
+
 """Main entry point for the GUI application.
 
 Put here:
@@ -7,10 +10,17 @@ Put here:
 - graceful shutdown / logging init
 """
 
+from vxgyrus.infrastructure.io.images_2d import JPEGFileHandler
+
 def main() -> int:
-    # TODO: initialize logging, load config, start Qt loop
-    raise NotImplementedError
+    pfname = "file.jpg"
+    
+    reader = JPEGFileHandler(pfname)
+    viewer = SceneViewer(reader.build())
+    viewer.start()
+    
+
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
