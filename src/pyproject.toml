@@ -1,0 +1,27 @@
+# pyproject.toml (uv + Python project metadata)
+#
+# Put here:
+# - project name/version
+# - dependencies (VTK, SimpleITK, pydicom, PySide6, hydra-core, numpy, pillow, etc.)
+# - tooling configs (ruff/pytest) if you want
+#
+# Later:
+# - run: uv lock
+#
+[project]
+name = "vxgyrus_viewer"
+version = "0.1.0"
+requires-python = ">=3.10,<3.12"
+dependencies = [
+  # "numpy",
+  # "vtk",
+  # "SimpleITK",
+  # "pydicom",
+  # "pillow",
+  # "PySide6",
+  # "hydra-core",
+  # "omegaconf",
+]
+
+[tool.uv]
+# dev-dependencies = ["pytest", "ruff"]

@@ -1,0 +1,26 @@
+# Hydra configuration (optional for phase 1).
+#
+# Put here:
+# - default paths (last opened folder, default export folder)
+# - label LUT (label id -> name/color)
+# - viewer defaults (window/level presets, overlay alpha)
+# - tool defaults (brush radius, erase mode)
+#
+# Recommendation for GUI:
+# - avoid changing working directory
+# - store absolute paths
+#
+# Example skeleton:
+# defaults:
+#   - _self_
+#
+# app:
+#   name: vxgyrus_viewer
+#
+# paths:
+#   last_open_dir: ""
+#
+# labels:
+#   - id: 1
+#     name: "Organ"
+#     color: [255, 0, 0]
