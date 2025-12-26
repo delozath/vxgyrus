@@ -1,3 +1,6 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 from vxgyrus.presentation.cli_viewer import SceneViewer
 
@@ -13,7 +16,7 @@ Put here:
 from vxgyrus.infrastructure.io.images_2d import JPEGFileHandler
 
 def main() -> int:
-    pfname = "file.jpg"
+    pfname = os.getenv("TEST_DATA_PATH")
     
     reader = JPEGFileHandler(pfname)
     viewer = SceneViewer(reader.build())
