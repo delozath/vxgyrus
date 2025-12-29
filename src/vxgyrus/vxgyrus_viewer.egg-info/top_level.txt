@@ -1,5 +1,0 @@
-application
-domain
-experimental
-infrastructure
-presentation
