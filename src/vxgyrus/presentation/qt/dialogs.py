@@ -6,7 +6,7 @@ class DialogsPyQt5:
     def __init__(self, win):
         self.win = win
         self.win.actionOpen.triggered.connect(self.on_open)
-
+        
         self.actions = ActionsPyQt5(win)
     
     def on_open(self):

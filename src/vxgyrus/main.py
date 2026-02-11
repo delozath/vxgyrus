@@ -9,7 +9,7 @@ from vxgyrus.presentation.qt.main_window import App
 def main():
     app = QtWidgets.QApplication(sys.argv)
 
-    win = App("./vxgyrus/application/testing.ui")
+    win = App("./application/testing.ui")
     win.show()
     """
     img, _ = QtWidgets.QFileDialog.getOpenFileName(
