@@ -4,7 +4,7 @@ from pathlib import Path
 
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 
-from PyQt5 import QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 class ActionsPyQt5:
     def __init__(self, host):
@@ -15,8 +15,25 @@ class ActionsPyQt5:
         ext = Path(path).suffix
         #print(f"Selected file: {path}")
         data = self._loaders[ext]().load(self.host, path)
+        self.on_main_window_resize()
+        QtCore.QTimer.singleShot(0, self.on_main_window_resize)
         #print(f"Data loaded: {data}")
         return data
+
+    def on_main_window_resize(self):
+        container = self.host.findChild(QtWidgets.QWidget, "widgetMain2DViewer")
+        if container is None:
+            return
+
+        vtk_widget = container.findChild(QVTKRenderWindowInteractor)
+        if vtk_widget is None:
+            return
+
+        size = container.size()
+        vtk_widget.resize(size)
+        rw = vtk_widget.GetRenderWindow()
+        rw.SetSize(size.width(), size.height())
+        rw.Render()
     
     def _connect(self):
         self._loaders = {
@@ -39,15 +56,17 @@ class ActionsVTK:
             layout.setContentsMargins(0, 0, 0, 0)
             layout.setSpacing(0)
 
-        # limpiar el contenedor (para no apilar widgets)
         while layout.count():
             item = layout.takeAt(0)
+            if item is None:
+                continue
             w = item.widget()
             if w:
                 w.setParent(None)
                 w.deleteLater()
         
-        vtk_widget = QVTKRenderWindowInteractor(host)
+        vtk_widget = QVTKRenderWindowInteractor(container)
+        vtk_widget.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         layout.addWidget(vtk_widget)
 
         rw = vtk_widget.GetRenderWindow()
@@ -61,19 +80,3 @@ class ActionsVTK:
         ren.ResetCamera()
         vtk_widget.GetRenderWindow().Render()
         return render.GetOutput()
-
-
-class Temp():
-    def tmp(self, layout):
-        self.vtk_widget = QVTKRenderWindowInteractor(self.host)
-        layout.addWidget(self.vtk_widget)
-
-        self.rw = self.vtk_widget.GetRenderWindow()
-        self.ren = vtk.vtkRenderer()
-        self.rw.AddRenderer(self.ren)
-
-        self.actor = vtk.vtkImageActor()
-        self.ren.AddActor(self.actor)
-
-        self.vtk_widget.Initialize()
-
