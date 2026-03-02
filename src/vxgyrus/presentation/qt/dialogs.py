@@ -6,8 +6,9 @@ class DialogsPyQt5:
     def __init__(self, win):
         self.win = win
         self.win.actionOpen.triggered.connect(self.on_open)
-        if hasattr(self.win, "tools_window") and hasattr(self.win.tools_window, "enable_magnetic_segmentation"):
-            self.win.tools_window.enable_magnetic_segmentation.clicked.connect(
+        print(self.win.__dict__)
+        if hasattr(self.win, "tools_window") and hasattr(self.win.tools_window, "enable_segmentation"):
+            self.win.tools_window.enable_segmentation.clicked.connect(
                 self.on_enable_magnetic_segmentation
             )
         

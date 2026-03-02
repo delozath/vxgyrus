@@ -8,8 +8,10 @@ class App(QtWidgets.QMainWindow):
         super().__init__()
         uic.loadUi(ui_path, self) 
 
+        #main window
         self._setup_main_viewer_layout()
 
+        #tools window: segmentation
         self.tools_window = SegmentationToolsWindow(self)
         self.tools_window.show()
         
