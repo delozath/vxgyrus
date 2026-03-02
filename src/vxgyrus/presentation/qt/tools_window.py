@@ -34,12 +34,17 @@ class SegmentationToolsWindow(QtWidgets.QWidget):
         brush_size_layout.addWidget(self.label_brush_size)
 
         self.button_apply = QtWidgets.QPushButton("Apply Stroke")
-        self.enable_magnetic_segmentation = QtWidgets.QPushButton("Enable Segmentation")
+        self.enable_segmentation = QtWidgets.QPushButton("Enable Segmentation")
+
+        self.enable_segmentation.setCheckable(True)
+        self.enable_segmentation.setChecked(False)
+        #self.enable_segmentation.toggled.connect(self._set_segmentation_toggle)
 
         form.addRow("Tool", self.combo_tool)
         form.addRow("Brush size", brush_size_layout)
         form.addRow(self.button_apply)
-        form.addRow(self.enable_magnetic_segmentation)
+        form.addRow(self.enable_segmentation)
 
         root_layout.addWidget(group)
         root_layout.addStretch(1)
+    

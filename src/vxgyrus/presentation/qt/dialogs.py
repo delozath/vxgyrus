@@ -25,4 +25,4 @@ class DialogsPyQt5:
         return path
 
     def on_enable_magnetic_segmentation(self):
-        self.actions.enable_magnetic_segmentation()
+        self.actions.enable_manual_segmentation()
