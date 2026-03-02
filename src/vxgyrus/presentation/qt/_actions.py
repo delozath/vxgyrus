@@ -144,18 +144,6 @@ class ActionsPyQt5:
         }
 
 
-# =============================================================================
-# VTK handles (viewer ya creado)
-# =============================================================================
-
-@dataclass
-class VTK2DHandles:
-    vtk_widget: QVTKRenderWindowInteractor
-    render_window: vtk.vtkRenderWindow
-    renderer: vtk.vtkRenderer
-    interactor: vtk.vtkRenderWindowInteractor
-    base_actor: vtk.vtkImageActor
-
 
 # =============================================================================
 # Overlay + tracer (lazy init)

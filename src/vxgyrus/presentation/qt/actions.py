@@ -1,12 +1,10 @@
-from vxgyrus.infrastructure.io.images_2d import VTKImages2DLoader
+from vxgyrus.infrastructure.io.images_2d import VTKImage2DTracerFrontend, VTKImages2DLoader, VTK2DHandles
 import vtk
 from pathlib import Path
 
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
 from PyQt5 import QtCore, QtWidgets
 
-from dataclasses import dataclass
-from typing import Dict, List, Tuple, Optional, Callable
 
 import numpy as np
 from vtkmodules.util.numpy_support import numpy_to_vtk
@@ -29,7 +27,7 @@ class ActionsPyQt5:
 
         return data
 
-    def enable_manual_segmentation(self):
+    def manual_segmentation(self):
         try:
             self._actions.enable_manual_segmentation()
         except RuntimeError as error:
@@ -118,19 +116,24 @@ class ActionsVTK:
         iren = rw.GetInteractor()
         iren.SetInteractorStyle(vtk.vtkInteractorStyleImage())
 
-        """
-        self.container = VTK2DHandles(
-            vtk_widget=vtk_widget,
-            render_window=rw,
+        self.vtk_container = VTK2DHandles(
+            image = vtk_img,
+            widget=vtk_widget,
+            renwin=rw,
             renderer=ren,
             interactor=iren,
-            base_actor=actor,
+            actor=actor,
         )
-        """
+        
         # Reset segmentación (si cambiaste de imagen)
         #self._overlay = None
         #self._driver = None
 
-
     def enable_manual_segmentation(self):
-        print("Habilitando segmentación manual...")
+        if not hasattr(self, "vtk_container"):
+            raise RuntimeError(
+                "Before enabling segmentation, an image must be loaded. "
+                "Use (File > Open)."
+            )
+        VTKImage2DTracerFrontend().bind(self.vtk_container)
+        
