@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, uic
 
 from vxgyrus.presentation.qt.dialogs import DialogsPyQt5
+from vxgyrus.presentation.qt.tools_window import SegmentationToolsWindow
 
 class App(QtWidgets.QMainWindow):
     def __init__(self, ui_path: str):
@@ -8,6 +9,9 @@ class App(QtWidgets.QMainWindow):
         uic.loadUi(ui_path, self) 
 
         self._setup_main_viewer_layout()
+
+        self.tools_window = SegmentationToolsWindow(self)
+        self.tools_window.show()
         
         self.dialogs = DialogsPyQt5(self)
 
